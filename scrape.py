@@ -15,7 +15,7 @@ def get_scores(url):
         content = text.text
         scores.append(content)
 
-    return split_scores[4]
+    return scores
 
 def parse(s):
     '''Parse each game and insert into dictionary'''
