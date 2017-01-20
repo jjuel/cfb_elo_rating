@@ -28,6 +28,7 @@ def parse(s):
         'Location(if neutral)': s[72:].strip()
     }
 
+
 SCORES_LINK = "http://prwolfe.bol.ucla.edu/cfootball/scores.htm"
 full_scores = get_scores(SCORES_LINK)
 
