@@ -1,6 +1,8 @@
 '''This script will scrape the scores for college football'''
 from bs4 import BeautifulSoup
 import requests
+import csv
+
 
 def get_scores(url):
     '''Get scores with BS from given URL'''
@@ -17,6 +19,7 @@ def get_scores(url):
 
     return scores
 
+
 def parse(s):
     '''Parse each game and insert into dictionary'''
     return {
@@ -27,6 +30,16 @@ def parse(s):
         'Home Score': s[69:72],
         'Location(if neutral)': s[72:].strip()
     }
+
+
+def write_to_csv():
+    '''Write list of dictionary to a CSV file'''
+    with open('2017_Scores.csv', 'w') as f:
+        fieldnames = ['Date', 'Visiting Team', 'Visitor Score', 'Home Team', 'Home Score', 'Location(if neutral)']
+        w = csv.DictWriter(f, fieldnames=fieldnames, delimiter='\t')
+
+        w.writeheader()
+        w.writerows(scores_dict)
 
 
 SCORES_LINK = "http://prwolfe.bol.ucla.edu/cfootball/scores.htm"
@@ -41,5 +54,7 @@ scores_dict = [{}]
 
 for st in split_scores:
     scores_dict.append(parse(st))
+
+write_to_csv()
 
 print(scores_dict)
